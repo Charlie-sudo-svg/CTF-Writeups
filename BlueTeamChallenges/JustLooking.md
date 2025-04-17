@@ -51,3 +51,49 @@ Finding the workflow ID can be found by going back to one of the logs that was a
 The UPNSuffix is also in the logs as well and is tryhackmelabs.onmicrosoft.com.
 
 ## Task 5 Incident 2
+
+Clicking on the second incident I clicked view full details and found the ip was 181.214.151.205. After that I used an IP geolocater and put in the IP to find that the IP traces back to Miami.
+
+The disabled account in this situation is 
+marcus@tryhackmelabs.onmicrosoft.com.
+
+![Screenshot 2025-04-16 231525](https://github.com/user-attachments/assets/ccccbfb0-c1a2-4e37-8b17-3b07008ff028)
+
+All of this could be found from microsofts sentinals amazing GUI.
+
+The last question asks the ResultType filter in the rule, going to the rules details I found that its 50057.
+
+## Task 6 Incident 3
+
+Looking at the alert, I found the answer to the first few questiosn which was CredentialAccess and Brute Force. The error code when MFA is denied is 500121 by looking at the result type.
+
+To find the name of the access policy that is triggered, I looked under AuthenticationRequirementPolicies_s in the logs and found Security Defaults.
+
+I found the authentication method by looking under AuthenticationDetails_s and found mobile app authentication.
+
+The browser version is also pretty easy to find as well as its also in the logs under DeviceDetail_s. The version is Firefox 125.0.
+
+To find the amount of entities mapped to the incident, I viewed full details in Sentinal and found that 2 entities are mapped, 
+185.243.57.70 and marcus@tryhackmelabs.com
+
+![Screenshot 2025-04-16 233549](https://github.com/user-attachments/assets/27bc9674-e7b0-4994-aa18-28a1367f1255)
+
+## Task 7 Incident 4
+
+The last incident! 
+
+The first thing I did to find the UPN that escalated Marcus was look at the 2 logs. At first, I only saw one log associated with Marcus email and saw the email that Initated it was breakglass@tryhackmelabs.onmicrosoft.com.
+
+To find the role he got escalated to, I went under the same log I used to find the UPN and went under aaa and found the new value for his role was Privileged Role Administrator.
+
+I found the source table to be AuditLogs_CL by looking at "Type" in the same log I've been looking at for this entire incident.
+
+The other user to be a target was usr-24052103@tryhackmelabs.onmicrosoft.com. I knew this when I looked at the first log and saw the Target UPN.
+
+The last question! What was the initiating IP address? This was also pretty easy, I just looked at the log and scrolled down until I found initiating IP address to be 2.59.157.197.
+
+## Thoughts
+
+This lab is a great introduction into how to use Microsoft Azure and Sentinel as a cybersecurity analyst. Before doing this challenge, I had no idea how to use Sentinel and properly analyze logs. After, I can now see how useful Azure can be to analyzing alerts with an amazing gui and very intuitive way of finding information from logs. 
+
+
